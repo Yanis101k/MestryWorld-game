@@ -1,0 +1,44 @@
+# Compiler
+CXX = g++
+CXXFLAGS = -std=c++14 -Iinclude -Wall -Wextra
+
+# Folders
+SRC_DIR = src
+OBJ_DIR = obj
+BIN_DIR = bin
+TEST_DIR = tests
+
+# Files
+MAIN_SRC = $(SRC_DIR)/main.cpp
+TEST_SRC = $(TEST_DIR)/tests.cpp
+
+GAME_SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
+GAME_OBJECTS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(GAME_SOURCES))
+
+TARGET = $(BIN_DIR)/mysteryworld
+TEST_TARGET = $(BIN_DIR)/tests
+
+# ===== Build the game =====
+all: $(TARGET)
+
+$(TARGET): $(GAME_OBJECTS)
+	@mkdir -p $(BIN_DIR)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# ===== Build and run tests =====
+tests: $(TEST_SRC) $(SRC_DIR)/Stone.cpp $(SRC_DIR)/Room.cpp
+	@mkdir -p $(BIN_DIR)
+	$(CXX) $(CXXFLAGS) -o $(TEST_TARGET) $^
+	@./$(TEST_TARGET)
+
+# ===== Clean compiled files =====
+clean:
+	rm -rf $(OBJ_DIR) $(BIN_DIR)
+
+# ===== Run the main game program =====
+run: all
+	@./$(TARGET)
