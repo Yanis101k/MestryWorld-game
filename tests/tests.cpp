@@ -1,7 +1,8 @@
 #include <cassert>
 #include <iostream>
-#include "Stone.h"
-#include "Room.h"
+#include "../include/Stone.h"
+#include "../include/Hole.h"
+#include "../include/Room.h"
 
 void testStone() {
     std::cout << "\n=== Running testStone() ===\n";
@@ -32,8 +33,40 @@ void testStone() {
     std::cout << "✅ testStone() passed.\n";
 }
 
-int main() {
-    testStone();
-    std::cout << "✅ All tests passed.\n";
-    return 0;
+void testHole() {
+    std::cout << "\n=== Running testHole() ===\n";
+
+    // Create a hole at (1, 2 , 6.5 )
+    Hole h( 1 , 2 , 6.5 );
+    assert(h.getX() == 1);
+    assert(h.getY() == 2);
+    assert( h.getDepth() == 6.5 ) ; 
+    assert(h.getType() == "Hole");
+
+    // Redirect output of display() to verify it prints 'S'
+    std::cout << "Expected symbol: O | Actual: ";
+    h.display();
+    std::cout << "\n";
+
+    // Set a valid position
+    h.setPosition(4, 5);
+    assert(h.getX() == 4);
+    assert(h.getY() == 5);
+
+    // Set an invalid position — should not change anything
+    int oldX = h.getX();
+    int oldY = h.getY();
+    h.setPosition(15, 10); // invalid
+    assert(h.getX() == oldX); // should remain unchanged
+    assert(h.getY() == oldY);
+
+    // try to create a hole with negative depth 
+    Hole h1( 1 , 2 , -6 ) ;
+    assert( h1.getDepth() == 0 ) ;  
+
+    std::cout << "✅ testStone() passed.\n";
+}
+
+int main(){
+    testHole() ; 
 }
