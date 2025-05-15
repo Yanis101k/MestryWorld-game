@@ -67,6 +67,20 @@ void testHole() {
     std::cout << "✅ testStone() passed.\n";
 }
 
+void testRoomBasic() {
+    std::cout << "\n=== Running testRoomBasic() ===\n";
+
+    Room room;
+    room.addEntity(new Stone(1, 1));
+    room.addEntity(new Hole(2, 3, 12));
+    room.addEntity(new Hole(5, 5, 18));
+
+    std::cout << "Displaying Room:\n";
+    room.display();
+
+    std::cout << "✅ testRoomBasic() passed.\n";
+}
+
 int main(){
-    testHole() ; 
+    testRoomBasic() ; 
 }

@@ -1,17 +1,26 @@
 #ifndef ROOM_H
 #define ROOM_H
 
+#include "Entity.h"
+
 class Room {
 private:
-    static const int WIDTH = 10;   // Number of columns in the grid
-    static const int HEIGHT = 10;  // Number of rows in the grid
+    static const int WIDTH = 10;
+    static const int HEIGHT = 10;
+
+    Entity* grid[HEIGHT][WIDTH];
 
 public:
-    // Getter for grid width (columns)
-    static int getWidth();
+    Room();
+    ~Room();
 
-    // Getter for grid height (rows)
+    static int getWidth();
     static int getHeight();
+
+    void addEntity(Entity* entity);
+    void display() const;
+    void reset();  // Later
 };
 
 #endif
+
