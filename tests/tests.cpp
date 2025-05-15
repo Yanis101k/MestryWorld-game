@@ -3,6 +3,8 @@
 #include "../include/Stone.h"
 #include "../include/Hole.h"
 #include "../include/Room.h"
+#include "../include/AnimateEntity.h"
+#include "../include/Human.h"
 
 void testStone() {
     std::cout << "\n=== Running testStone() ===\n";
@@ -91,7 +93,25 @@ void testResetRoom() {
     std::cout << "✅ testResetRoom() finished.\n";
 }
 
+void testHumane(){
+    std::cout <<"\n=== Runing testHumane() ===\n"; 
+    Human h( 2 , 3 , "yanis" ) ;
+
+    assert( h.getX() == 2 ) ;
+    assert( h.getY() == 3 ) ; 
+    assert( h.getName() == "yanis") ; 
+    assert( h.getHealth() == 100 ) ; 
+    assert( h.getType() == "Human") ; 
+    
+
+    // Redirect output of display() to verify it prints 'S'
+    std::cout << "Expected symbol: @ | Actual: ";
+    h.display();
+    std::cout << "\n";
+    
+    std::cout << "\n === ✅ Humane class test passed  " ; 
+}
 int main(){
    
-    testResetRoom() ; 
+    testHumane() ; 
 }
