@@ -81,6 +81,17 @@ void testRoomBasic() {
     std::cout << "✅ testRoomBasic() passed.\n";
 }
 
+void testResetRoom() {
+    std::cout << "\n=== Running testResetRoom() ===\n";
+
+    Room room;
+    room.reset();
+    room.display();
+
+    std::cout << "✅ testResetRoom() finished.\n";
+}
+
 int main(){
-    testRoomBasic() ; 
+   
+    testResetRoom() ; 
 }

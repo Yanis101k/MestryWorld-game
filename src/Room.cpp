@@ -1,5 +1,13 @@
 #include <iostream>
 #include "../include/Room.h"
+#include <cstdlib>   // for rand()
+#include <ctime>     // for time()
+#include "../include/Stone.h"
+#include "../include/Hole.h"
+#include "../include/Human.h"
+#include "../include/Monster.h"
+#include "../include/Dragon.h"
+
 
 Room::Room() {
     for (int i = 0; i < HEIGHT; ++i)
@@ -38,5 +46,40 @@ void Room::display() const {
             else std::cout << ".";
         }
         std::cout << "\n";
+    }
+}
+
+void Room::reset() {
+    // Clear old grid
+    for (int i = 0; i < HEIGHT; ++i)
+        for (int j = 0; j < WIDTH; ++j) {
+            delete grid[i][j];
+            grid[i][j] = nullptr;
+        }
+
+    // Seed random only once (do this in constructor ideally, or leave for now)
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+
+    // Helper lambda to get random empty position
+    auto getRandomEmptyPosition = [&]() {
+        int x, y;
+        do {
+            x = std::rand() % HEIGHT;
+            y = std::rand() % WIDTH;
+        } while (grid[x][y] != nullptr);
+        return std::make_pair(x, y);
+    };
+
+    // Place 2 Stones
+    for (int i = 0; i < 2; ++i) {
+        auto [x, y] = getRandomEmptyPosition();
+        addEntity(new Stone(x, y));
+    }
+
+    // Place 2 Holes (depth 0–20)
+    for (int i = 0; i < 2; ++i) {
+        auto [x, y] = getRandomEmptyPosition();
+        int depth = std::rand() % 21;
+        addEntity(new Hole(x, y, depth));
     }
 }
