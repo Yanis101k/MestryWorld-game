@@ -6,6 +6,7 @@
 #include "../include/AnimateEntity.h"
 #include "../include/Human.h"
 #include "../include/Dragon.h"
+#include "../include/Monster.h"
 
 void testStone() {
     std::cout << "\n=== Running testStone() ===\n";
@@ -146,9 +147,39 @@ void testDragon(){
     std::cout << "\n === ✅ Dragon class test passed  " ; 
 
 }
+
+void testMonster(){
+
+    std::cout <<"\n=== Runing testHumane() ===\n" ; 
+    Monster m( 6, 8 , 9 ) ; 
+    
+    assert( m.getX() == 6 ) ; 
+    assert( m.getY() == 8 ) ;
+    assert( m.getStrength() == 0 ) ; 
+    assert( m.getHealth() == 100 ) ; 
+    assert( m.getType() == "Monster" ) ; 
+    
+
+    
+    m.reduceHealth( 50 ) ; 
+
+    assert( m.getHealth() == 50 ) ;
+    
+    m.reduceHealth(60) ; 
+    assert( m.getHealth() == 0 ) ; 
+
+    // Remirect output of misplay() to verify it prints 'S'
+    std::cout << "Expectem symbol: * | Actual: ";
+    m.display();
+    std::cout << "\n";
+    
+    std::cout << "\n === ✅ Dragon class test passed  " ; 
+
+}
 int main(){
      
     testHumane() ; 
     testDragon() ; 
+    testMonster() ; 
     
 }
