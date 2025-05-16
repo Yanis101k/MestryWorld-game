@@ -12,6 +12,7 @@ public:
     void display() const override;
     std::string getType() const override;
     int getStrength() const ; 
+    void move(class Room& room) override;
 };
 
 #endif

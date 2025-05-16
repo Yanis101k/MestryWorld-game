@@ -10,11 +10,13 @@ private:
 
 public:
     Human(int x, int y, const std::string& name);
+    
     void display() const override;
     std::string getType() const override;
     //void move(class Room& room) override;
 
     std::string getName() const;
+    void move(class Room& room) override;
 };
 
 #endif

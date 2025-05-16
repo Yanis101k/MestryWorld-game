@@ -49,6 +49,34 @@ void Room::display() const {
     }
 }
 
+// Return a pointer to the entity at a specific location (or nullptr)
+Entity* Room::getEntityAt(int x, int y) const {
+    if (x >= 0 && x < HEIGHT && y >= 0 && y < WIDTH) {
+        return grid[x][y];
+    }
+    return nullptr;  // out-of-bounds access
+}
+
+// Move the entity to a new valid cell and update grid positions
+void Room::moveEntity(Entity* entity, int newX, int newY) {
+    int oldX = entity->getX();
+    int oldY = entity->getY();
+
+    // Safety: check if target is in bounds and empty
+    if (newX >= 0 && newX < HEIGHT &&
+        newY >= 0 && newY < WIDTH &&
+        grid[newX][newY] == nullptr) {
+        
+        // Move entity
+        grid[oldX][oldY] = nullptr;
+        grid[newX][newY] = entity;
+        entity->setPosition(newX, newY);
+    } else {
+        std::cerr << "❌ moveEntity: Invalid or occupied position (" << newX << ", " << newY << ")\n";
+    }
+}
+
+
 void Room::reset() {
     // Clear old grid
     for (int i = 0; i < HEIGHT; ++i)
@@ -82,4 +110,6 @@ void Room::reset() {
         int depth = std::rand() % 21;
         addEntity(new Hole(x, y, depth));
     }
+
+    
 }

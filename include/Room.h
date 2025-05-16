@@ -18,6 +18,8 @@ public:
     static int getHeight();
 
     void addEntity(Entity* entity);
+    Entity* getEntityAt(int x, int y) const;
+    void moveEntity(Entity* entity, int newX, int newY);
     void display() const;
     void reset();  // Later
 };

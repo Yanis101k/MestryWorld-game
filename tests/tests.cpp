@@ -176,10 +176,46 @@ void testMonster(){
     std::cout << "\n === ✅ Dragon class test passed  " ; 
 
 }
+
+void testMovement() {
+    std::cout << "\n=== Running testMovement() ===\n";
+
+    Room room;
+
+    // Create and place a Human
+    Human* h = new Human(2, 2, "Harold");
+    room.addEntity(h);
+
+    // Create and place a Dragon
+    Dragon* d = new Dragon(3, 3);
+    room.addEntity(d);
+
+    // Create and place a Monster
+    Monster* m = new Monster(4, 4, 3);
+    room.addEntity(m);
+
+    std::cout << "Room before movement:\n";
+    room.display();
+
+    // Move each entity
+    h->move(room);
+    d->move(room);
+    m->move(room);
+
+    std::cout << "\nRoom after movement:\n";
+    room.display();
+
+    // Print healths after movement
+    std::cout << "\nHealths:\n";
+    std::cout << "Human (Harold): " << h->getHealth() << "\n";
+    std::cout << "Dragon: " << d->getHealth() << "\n";
+    std::cout << "Monster: " << m->getHealth() << "\n";
+
+    std::cout << "✅ testMovement() completed.\n";
+}
+
+
 int main(){
      
-    testHumane() ; 
-    testDragon() ; 
-    testMonster() ; 
-    
+   testMovement() ; 
 }
