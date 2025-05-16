@@ -12,7 +12,7 @@ public:
     virtual ~AnimateEntity();
 
     int getHealth() const;
-    void reduceHealth(int amount);
+    void reduceHealth( int amount);
 
     //virtual void move(class Room& room) = 0; // pure virtual
 };

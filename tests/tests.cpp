@@ -5,6 +5,7 @@
 #include "../include/Room.h"
 #include "../include/AnimateEntity.h"
 #include "../include/Human.h"
+#include "../include/Dragon.h"
 
 void testStone() {
     std::cout << "\n=== Running testStone() ===\n";
@@ -102,6 +103,13 @@ void testHumane(){
     assert( h.getName() == "yanis") ; 
     assert( h.getHealth() == 100 ) ; 
     assert( h.getType() == "Human") ; 
+
+    h.reduceHealth( 50 ) ; 
+
+    assert( h.getHealth() == 50 ) ;
+    
+    h.reduceHealth(60) ; 
+    assert( h.getHealth() == 0 ) ; 
     
 
     // Redirect output of display() to verify it prints 'S'
@@ -111,7 +119,36 @@ void testHumane(){
     
     std::cout << "\n === ✅ Humane class test passed  " ; 
 }
+
+void testDragon(){
+
+    std::cout <<"\n=== Runing testHumane() ===\n" ; 
+    Dragon d( 7 , 8 ) ; 
+    
+    assert( d.getX() == 7 ) ; 
+    assert( d.getY() == 8 ) ;
+    assert( d.getHealth() == 100 ) ; 
+    assert( d.getType() == "Dragon" ) ; 
+    
+    
+    d.reduceHealth( 50 ) ; 
+
+    assert( d.getHealth() == 50 ) ;
+    
+    d.reduceHealth(60) ; 
+    assert( d.getHealth() == 0 ) ; 
+
+    // Redirect output of display() to verify it prints 'S'
+    std::cout << "Expected symbol: # | Actual: ";
+    d.display();
+    std::cout << "\n";
+    
+    std::cout << "\n === ✅ Dragon class test passed  " ; 
+
+}
 int main(){
-   
+     
     testHumane() ; 
+    testDragon() ; 
+    
 }
