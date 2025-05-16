@@ -7,6 +7,7 @@
 #include "../include/Human.h"
 #include "../include/Monster.h"
 #include "../include/Dragon.h"
+#include <vector>
 
 
 Room::Room() {
@@ -77,17 +78,24 @@ void Room::moveEntity(Entity* entity, int newX, int newY) {
 }
 
 void Room::moveAll() {
-    // Loop over grid in safe order to prevent double-moving
+    std::vector<AnimateEntity*> toMove;
+
+    // First: gather all entities that need to move
     for (int i = 0; i < HEIGHT; ++i) {
         for (int j = 0; j < WIDTH; ++j) {
             Entity* entity = grid[i][j];
-
-            // Check if it's an animated entity AND still in the same cell
-            if (entity != nullptr && dynamic_cast<AnimateEntity*>(entity) && grid[i][j] == entity) {
-                AnimateEntity* animated = dynamic_cast<AnimateEntity*>(entity);
-                animated->move(*this);
+            if (entity) {
+                AnimateEntity* ae = dynamic_cast<AnimateEntity*>(entity);
+                if (ae) {
+                    toMove.push_back(ae);
+                }
             }
         }
+    }
+
+    // Second: move them safely
+    for (AnimateEntity* e : toMove) {
+        e->move(*this);
     }
 }
 
