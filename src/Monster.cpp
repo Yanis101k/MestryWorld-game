@@ -19,12 +19,12 @@ int Monster::getStrength() const {
     return strength ; 
 }
 
-
 void Monster::move(Room& room) {
     const int directions[4][2] = {
         {-1, 0}, {1, 0}, {0, -1}, {0, 1}
     };
 
+    // Try 4 directions
     for (int d = 0; d < 4; ++d) {
         int nx = x + directions[d][0] * strength;
         int ny = y + directions[d][1] * strength;
@@ -38,7 +38,7 @@ void Monster::move(Room& room) {
         }
     }
 
-    // Else: move to random adjacent
+    // Fallback to adjacent random
     for (int attempt = 0; attempt < 10; ++attempt) {
         int dx = std::rand() % 3 - 1;
         int dy = std::rand() % 3 - 1;
@@ -49,9 +49,12 @@ void Monster::move(Room& room) {
             ny >= 0 && ny < Room::getWidth() &&
             room.getEntityAt(nx, ny) == nullptr) {
             room.moveEntity(this, nx, ny);
-            reduceHealth(1);
+            reduceHealth(1);  // lose 1 instead of full strength
             return;
         }
     }
+
+    // If nothing works, do not move or lose health
 }
+
 

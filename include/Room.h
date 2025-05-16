@@ -20,6 +20,7 @@ public:
     void addEntity(Entity* entity);
     Entity* getEntityAt(int x, int y) const;
     void moveEntity(Entity* entity, int newX, int newY);
+    void moveAll();
     void display() const;
     void reset();  // Later
 };

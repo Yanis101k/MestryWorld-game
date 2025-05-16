@@ -76,6 +76,20 @@ void Room::moveEntity(Entity* entity, int newX, int newY) {
     }
 }
 
+void Room::moveAll() {
+    // Loop over grid in safe order to prevent double-moving
+    for (int i = 0; i < HEIGHT; ++i) {
+        for (int j = 0; j < WIDTH; ++j) {
+            Entity* entity = grid[i][j];
+
+            // Check if it's an animated entity AND still in the same cell
+            if (entity != nullptr && dynamic_cast<AnimateEntity*>(entity) && grid[i][j] == entity) {
+                AnimateEntity* animated = dynamic_cast<AnimateEntity*>(entity);
+                animated->move(*this);
+            }
+        }
+    }
+}
 
 void Room::reset() {
     // Clear old grid
@@ -107,9 +121,31 @@ void Room::reset() {
     // Place 2 Holes (depth 0–20)
     for (int i = 0; i < 2; ++i) {
         auto [x, y] = getRandomEmptyPosition();
-        int depth = std::rand() % 21;
+        float depth = std::rand() % 21;
         addEntity(new Hole(x, y, depth));
     }
 
+    // Place 3 Humans 
+    for (int i = 0; i < 3; ++i) {
+        auto [x, y] = getRandomEmptyPosition();
+        addEntity(new Human( x, y , "yanis"));
+    }
+
+    // Place 3 Monsters 
+    for (int i = 0; i < 3; ++i) {
+        auto [x, y] = getRandomEmptyPosition();
+       int strength = std::rand() % 6 ;
+        addEntity(new Monster(x, y, strength));
+    }
+
+    // Place 2 Dragon 
+    for (int i = 0; i < 2; ++i) {
+        auto [x, y] = getRandomEmptyPosition();
+        addEntity(new Dragon(x, y ));
+    }
+
+    
+
     
 }
+

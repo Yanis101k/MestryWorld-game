@@ -95,7 +95,7 @@ void testResetRoom() {
     std::cout << "✅ testResetRoom() finished.\n";
 }
 
-void testHumane(){
+void testHuman(){
     std::cout <<"\n=== Runing testHumane() ===\n"; 
     Human h( 2 , 3 , "yanis" ) ;
 
@@ -214,8 +214,30 @@ void testMovement() {
     std::cout << "✅ testMovement() completed.\n";
 }
 
+void testMoveAll() {
+    std::cout << "\n=== Running testMoveAll() ===\n";
+
+    Room room;
+    room.reset();  // places 3 Humans, 3 Monsters, 2 Dragons
+    std::cout << "Before movement:\n";
+    room.display();
+
+    room.moveAll();
+
+    std::cout << "\nAfter movement:\n";
+    room.display();
+    std::cout << "✅ testMoveAll() completed.\n";
+}
 
 int main(){
      
-   testMovement() ; 
+    testStone();
+    testHole();
+    testRoomBasic();
+    testResetRoom();
+    testHuman();
+    testMonster();
+    testDragon();
+    testMovement();
+    testMoveAll();
 }

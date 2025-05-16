@@ -22,10 +22,11 @@ void Human::move(Room& room) {
     int newX = x;
     int newY = y + 1;
 
+    // Try to move right
     if (newY < Room::getWidth() && room.getEntityAt(newX, newY) == nullptr) {
         room.moveEntity(this, newX, newY);
     } else {
-        // Move to random adjacent empty cell
+        // Try random adjacent cell
         for (int attempt = 0; attempt < 10; ++attempt) {
             int dx = std::rand() % 3 - 1;
             int dy = std::rand() % 3 - 1;
@@ -40,5 +41,8 @@ void Human::move(Room& room) {
             }
         }
     }
+
+    // Always lose 1 health on move attempt
     reduceHealth(1);
 }
+
